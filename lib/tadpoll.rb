@@ -12,10 +12,6 @@ module Tadpoll
     require 'tadpoll/extenders/voter'
     ActiveRecord::Base.extend Tadpoll::Extenders::Voter
   end
-
-  def self.polls
-    Tadpoll::Poll.all
-  end
  
 end
 
