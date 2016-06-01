@@ -14,7 +14,7 @@ module Tadpoll
       poll = Tadpoll::Poll.new(name: name)
 
       if poll.save
-        poll.create_options(poll, options)
+        poll.create_options(options)
         return poll
       else
         return false
@@ -22,7 +22,7 @@ module Tadpoll
     end
 
     # Create new option for a poll
-    def self.create_options(options = [])
+    def create_options(options = [])
       if options.any?
         options.each do |option|
           Tadpoll::Option.new_option(option, self)

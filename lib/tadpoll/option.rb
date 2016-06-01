@@ -22,12 +22,13 @@ module Tadpoll
     def vote(voter)
       return false if voter.nil?
 
-      if self.voted_on_by?(voter)
+      if self.poll.voted_on_by?(voter)
         return false
       else 
         vote = Tadpoll::Vote.new(
           option: self,
-          voter: voter,
+          voter_id: voter.id,
+          voter_type: voter.class.base_class.name,
           poll_id: self.poll_id
         )
       end

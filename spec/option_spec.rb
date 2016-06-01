@@ -5,7 +5,7 @@ describe Tadpoll::Option do
   before :each do
     @poll = Tadpoll::Poll.create!(name: "New Poll")
     @option = Tadpoll::Option.create!(name: "Option 1", poll: @poll)
-    @voter = Voter.create!
+    @voter = User.create!
     @vote = Tadpoll::Vote.create!(poll: @poll, voter: @voter, option: @option)
   end
 
@@ -19,12 +19,17 @@ describe Tadpoll::Option do
   end
 
   it "#vote with new voter" do
-    new_voter = Voter.create!
+    new_voter = User.create!
     expect(@option.vote(new_voter)).to be true
   end
 
   it "doesnt #vote with repeat voter" do
     expect(@option.vote(@voter)).to be false
+  end
+
+  it "doesnt #vote for other option in poll" do
+    second_option = Tadpoll::Option.create!(name: "Option 2", poll: @poll)
+    expect(second_option.vote(@voter)).to be false
   end
 
   it "counts votes" do
@@ -49,7 +54,7 @@ describe Tadpoll::Option do
   end
 
   it "not #voted_on_by a voter who didnt vote" do
-    new_voter = Voter.create!
+    new_voter = User.create!
     expect(@option.voted_on_by?(new_voter)).to be false
   end
   

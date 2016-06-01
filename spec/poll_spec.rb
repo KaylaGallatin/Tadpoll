@@ -5,7 +5,7 @@ describe Tadpoll::Poll do
   before :each do
     @poll = Tadpoll::Poll.create!(name: "New Poll")
     @option = Tadpoll::Option.create!(name: "Option 1", poll: @poll)
-    @voter = Voter.create!
+    @voter = User.create!
     @vote = Tadpoll::Vote.create!(poll: @poll, voter: @voter, option: @option)
   end
 

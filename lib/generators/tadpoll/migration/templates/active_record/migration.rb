@@ -1,7 +1,7 @@
 class TadpollMigration < ActiveRecord::Migration
   def self.up
     create_table :votes do |t|
-      t.references :voter
+      t.references :voter, :polymorphic => true
       t.belongs_to :poll, index: true
       t.belongs_to :option, index: true
 
@@ -21,7 +21,7 @@ class TadpollMigration < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :votes, [:voter_id]
+    add_index :votes, [:voter_id, :voter_type]
   end
 
   def self.down

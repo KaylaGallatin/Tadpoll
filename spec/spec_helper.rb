@@ -5,7 +5,7 @@ ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":me
 
 ActiveRecord::Schema.define(:version => 1) do
   create_table :votes do |t|
-    t.references :voter
+    t.references :voter, polymorphic: true
     t.belongs_to :poll, index: true
     t.belongs_to :option, index: true
     t.timestamps null: false
@@ -22,20 +22,20 @@ ActiveRecord::Schema.define(:version => 1) do
     t.timestamps null: false
   end
 
-  add_index :votes, [:voter_id]
+  add_index :votes, [:voter_id, :voter_type]
 
-  create_table :voters do |t|
+  create_table :users do |t|
     t.string :name
   end
 
 end
 
-class Voter < ActiveRecord::Base
+class User < ActiveRecord::Base
   is_voter
 end
 
 def clean_database
-  models = [Tadpoll::Vote, Voter, NotVoter, Votable, NotVotable, VotableCache]
+  models = [Tadpoll::Vote, Tadpoll::Poll, Tadpoll::Option, User]
   models.each do |model|
     ActiveRecord::Base.connection.execute "DELETE FROM #{model.table_name}"
   end

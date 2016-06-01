@@ -2,7 +2,7 @@ module Tadpoll
   class Vote < ::ActiveRecord::Base
 
     if defined?(ProtectedAttributes) || ::ActiveRecord::VERSION::MAJOR < 4
-      attr_accessible :voter_id, :voter
+      attr_accessible :voter_id, :voter_type
     end
 
     belongs_to :voter

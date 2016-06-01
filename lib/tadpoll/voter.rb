@@ -3,7 +3,7 @@ module Tadpoll
 
     def self.included(base)
       base.class_eval do
-        has_many :votes, :class_name => 'Tadpoll::Vote', :dependent => :destroy 
+        has_many :votes, :class_name => 'Tadpoll::Vote', :as => :voter, :dependent => :destroy
       end
     end
 
@@ -24,8 +24,7 @@ module Tadpoll
 
     # T / F votes for given params
     def voted_on?(args = {})
-      found_votes = votes.where(args)
-      found_votes.count > 0
+      votes.where(args).count > 0
     end
 
     # T / F Voter voted on given poll

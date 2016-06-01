@@ -5,12 +5,12 @@ describe Tadpoll::Voter do
   before :each do
     @poll = Tadpoll::Poll.create!(name: "New Poll")
     @option = Tadpoll::Option.create!(name: "Option 1", poll: @poll)
-    @voter = Voter.create!
-    @vote = Tadpoll::Vote.create!(poll: @poll, voter: @voter, option: @option)
+    @voter = User.create!
+    @vote = Tadpoll::Vote.create!(poll: @poll, voter_id: @voter.id, voter_type: @voter.class.base_class.name, option: @option)
   end
 
   it "should be a voter" do
-    expect(Voter).to be_voter
+    expect(User).to be_voter
   end
 
   it "has the expected attributes" do
@@ -18,7 +18,7 @@ describe Tadpoll::Voter do
   end
 
   it "#vote_for new option" do
-    new_voter = Voter.create!
+    new_voter = User.create!
     expect(new_voter.vote_for(@option)).to be true
   end
 
