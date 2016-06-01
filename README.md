@@ -56,11 +56,11 @@ option = poll.options.first
 @user.vote_for(option)
 
 poll.voted_on? # => true
-poll.voted_on_by?(@user) => true
+poll.voted_on_by?(@user) # => true
 
 # remove votes for a user
 poll.unvote(@user)
-poll.voted_on_by?(@user) => false
+poll.voted_on_by?(@user) # => false
 ```
 
 ### Options
@@ -77,13 +77,13 @@ poll.options.map{|o| o.name} # => ["Jon Snow", "Brienne of Tarth", "Arya Stark"]
 option = poll.options.first
 option.vote(@user)
 
-option.vote_count => 1
-option.voted_on? => true
-option.voted_on_by?(@user) => true
+option.vote_count # => 1
+option.voted_on? # => true
+option.voted_on_by?(@user) # => true
 
 # remove user votes
 option.unvote(@user)
-option.voted_on_by?(@user) => false
+option.voted_on_by?(@user) # => false
 ```
 
 ## Testing
