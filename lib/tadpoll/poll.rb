@@ -25,7 +25,7 @@ module Tadpoll
     def create_options(options = [])
       if options.any?
         options.each do |option|
-          Tadpoll::Option.new_option(option, self)
+          Tadpoll::Option.new_option(option, self.id)
         end
       end
     end
